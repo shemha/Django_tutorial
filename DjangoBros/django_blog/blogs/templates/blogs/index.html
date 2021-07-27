@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>index</title>
+</head>
+<body>
+    <h1>ブログサイト</h1>
+    <p>ここはトップページです。</p>
+    {% for blog in blogs %}
+        {{ blog.title }}
+    {% endfor %}
+</body>
+</html>
