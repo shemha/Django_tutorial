@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <title>index</title>
+    <title>ブログ管理サイト</title>
 </head>
 <body>
-    <h1>ブログサイト</h1>
-    <p>ここはトップページです。</p>
-    {% for blog in blogs %}
-        {{ blog.title }}
-    {% endfor %}
+    <h1 style="text-align: center;">My Blog</h1>
+    <div style="width: 70%; margin: 0px auto;">
+        <hr />{% for blog in blogs %}
+        <div>
+            <h3>{{ blog.title }}</h3>
+            <div>{{ blog.text | truncatechars:100 }}</div>
+        </div>
+        <hr />
+        {% endfor %}
+    </div>
 </body>
 </html>

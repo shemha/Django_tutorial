@@ -1,6 +1,8 @@
 from django.db import models
 
 # Create your models here.
+from django.db import models
+
 class Blog(models.Model):
     title = models.CharField(blank=False, null=False, max_length=150)
     text = models.TextField(blank=True)
@@ -9,5 +11,3 @@ class Blog(models.Model):
 
     def __str__(self):
         return self.title
-
-title = models.CharField(blank=False, null=False, max_length=150)
