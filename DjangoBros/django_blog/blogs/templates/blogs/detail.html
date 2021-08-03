@@ -9,7 +9,15 @@
         <div style="margin: 60px 20px;">
             {{ blog.text }}
         </div>
-        <div style="text-align: center; margin-top: 50px;">
+        <div style="text-align: center; margin-top: 50px">
+            <form method="POST" action="{% url 'blogs:delete' blog.id %}">
+                {%csrf_token %}
+                <button class="btn" type="submit" onclick='return confirm("本当に削除しますか?");'>
+                    削除
+                </button>
+            </form>
+        </div>
+        <div style="text-align: center; margin-top: 50px">
             <a href="{% url 'blogs:index' %}">トップページに戻る</a>
         </div>
     </div>
