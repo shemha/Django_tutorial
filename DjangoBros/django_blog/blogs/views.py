@@ -23,8 +23,13 @@ def new(request):  # 新規ブログ記事投稿ページ
         form = BlogForm
     return render(request, 'blogs/new.html', {'form': form})
 
-@require_POST
-def delete(request, blog_id):  # Delete機能
+@require_POST  # Delete機能
+def delete(request, blog_id):
     blog = get_object_or_404(Blog, id=blog_id)
     blog.delete()
     return redirect('blogs:index')
+
+def edit(request, blog_id):  # Update機能
+    blog = get_object_or_404(Blog, id=blog_id)
+    form = BlogForm(instance=blog)
+    return render(request, 'blogs/edit.html', {'form': form, 'blog': blog})
