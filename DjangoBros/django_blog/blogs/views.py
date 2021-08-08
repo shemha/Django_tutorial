@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404  # 'get_object_or_404'、'redirect'を追加
 from .models import Blog  # 追加
 from .forms import BlogForm  # 追加
-from django.views.decorators.http import require_POST # 追加
+from django.views.decorators.http import require_POST  # POST時に削除の機能を追加
 
 # Create your views here.
 def index(request):  # ブログ管理ページ
@@ -31,5 +31,11 @@ def delete(request, blog_id):
 
 def edit(request, blog_id):  # Update機能
     blog = get_object_or_404(Blog, id=blog_id)
-    form = BlogForm(instance=blog)
+    if request.method == "POST":
+        form = BlogForm(request.POST, instance=blog)
+        if form.is_valid():
+            form.save()
+            return redirect('blogs:detail', blog_id=blog_id)
+    else:
+        form = BlogForm(instance=blog)
     return render(request, 'blogs/edit.html', {'form': form, 'blog': blog})
