@@ -1,4 +1,5 @@
 venv
 __pycache__/
 djangobros_venv
-photoservice_venv
+PhotoService_venv
+db.sqlite3
