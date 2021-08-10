@@ -1,0 +1,28 @@
+<!-- base.htmlから読み込むため不要
+<!DOCTYPE html>
+<html>
+<head>
+    <title>写真投稿サイト</title>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><a href="{% url 'app:index' %}">写真投稿サイト</a></h1>
+            <div class="header-menu">
+                <a href="">投稿</a>
+            </div>
+        </div>
+    </header>
+    <div class="container">
+base.htmlから読み込むため不要 -->
+{% extends 'app/base.html' %}
+
+{% block con}
+        <h2>トップページ</h2>
+{% endblock %}
+
+<!-- base.htmlから読み込むため不要
+        </div>
+</body>
+</html>
+base.htmlから読み込むため不要 -->
