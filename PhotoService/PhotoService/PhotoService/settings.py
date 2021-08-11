@@ -16,6 +16,7 @@ from pathlib import Path  # css適応のための緊急追加項目
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 # BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  一旦コメントアウト
 BASE_DIR = Path(__file__).resolve().parent.parent  # css適応のための緊急追加項目
+print(BASE_DIR)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
@@ -121,9 +122,16 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 # プロジェクトディレクトリ直下のstaticディレクトリの読み込み
-STATICFILES_DIR = (
-    os.path.join(BASE_DIR, "static"),
-)
+# STATICFILES_DIR = (
+#     os.path.join(BASE_DIR, "static"),
+# )
+# 直上を一旦コメントアウト
+# css適応のための緊急追加項目
+STATICFILES_DIRS = [
+    STATIC_URL,
+    BASE_DIR / 'static',
+]
+
 
 # アップロードする画像の保存先を設定
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
