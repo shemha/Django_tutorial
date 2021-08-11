@@ -17,7 +17,13 @@ base.htmlにて読み込む内容のため不要内容 -->
 {% extends 'app/base.html' %}
 
 {% block content %}
+
         <h2>トップページ</h2>
+
+{% for photo in photos %}
+        <img src="{{ photo.image.url }}" class="photo-img">
+{% endfor %}
+
 {% endblock %}
 <!-- base.htmlにて読み込む内容のため不要内容
         </div>

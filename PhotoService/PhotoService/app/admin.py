@@ -1,7 +1,7 @@
 from django.contrib import admin
 from .models import Photo  # 追加
 
-# Register your models here.
+# Register your models here.  下記追加
 class PhotoAdmin(admin.ModelAdmin):
     list_display = ('id', 'title')
     list_display_links = ('id', 'title')
