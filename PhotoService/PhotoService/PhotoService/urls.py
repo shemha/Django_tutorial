@@ -14,13 +14,13 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include  # 'includeを追加
-from django.conf import settings # 追加
-from django.conf.urls.static import static # 追加
+from django.urls import path, include  # 'include'を追加
+from django.conf import settings  # ←1行追加
+from django.conf.urls.static import static  # ←1行追加
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('app.urls')),  #←1行追加
+    path('', include('app.urls')),  # ←1行追加
 ]
 
 # MEDIA_ROOTを公開する(アクセス可能にする)

@@ -4,6 +4,6 @@ from . import views
 
 app_name = 'app'
 urlpatterns = [
-    path('', views.index, name='index'),
-    path('users/<int:pk>/', views.users_detail, name='users_detail'),  # User詳細ページ
+    path('', views.index, name='index'),  # トップページのurl
+    path('users/<int:pk>/', views.users_detail, name='users_detail'),  # ユーザーページのurl
 ]

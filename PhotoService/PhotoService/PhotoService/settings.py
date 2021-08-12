@@ -11,18 +11,16 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
-from pathlib import Path  # css適応のための緊急追加項目
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-# BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  一旦コメントアウト
-BASE_DIR = Path(__file__).resolve().parent.parent  # css適応のための緊急追加項目
-print(BASE_DIR)
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '64bsn8b8$+rw-dyuty=q=-5^(_ekym#%)z2ws=0#=&br3m=mfr'
+SECRET_KEY = 'd_vwiq-!j!#g!6)a#u&j#3369bo01(x57rab$8cbf$d8v*70%e'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -39,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'app',  # 'appディレクトリを設定'
+    'app',  # appディレクトリ(アプリケーションディレクトリ)
+    'django_cleanup',  # 紐づいた画像ファイルも削除される仕様を導入
 ]
 
 MIDDLEWARE = [
@@ -119,19 +118,11 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
-
+# "STATIC_URL = '/static/'"の直下に静的ファイル読み込みを指定
 STATIC_URL = '/static/'
-# プロジェクトディレクトリ直下のstaticディレクトリの読み込み
-# STATICFILES_DIR = (
-#     os.path.join(BASE_DIR, "static"),
-# )
-# 直上を一旦コメントアウト
-# css適応のための緊急追加項目
-STATICFILES_DIRS = [
-    STATIC_URL,
-    BASE_DIR / 'static',
-]
-
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "static"),
+)
 
 # アップロードする画像の保存先を設定
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
