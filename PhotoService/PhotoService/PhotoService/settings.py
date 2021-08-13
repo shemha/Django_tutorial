@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '7ie+m5)6h^)u8inll&(769chv-&z5ua%*ct#src=&$oxvy6hx#'
+SECRET_KEY = '%+g1^!7jff$a3^0**)tekd&wvl8^igt3_z_o29oj@mnc!*z3dv'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -37,8 +37,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'app',  # appディレクトリと連携
-    'django_cleanup',  # 画像削除機能追加
 ]
 
 MIDDLEWARE = [
@@ -118,17 +116,5 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
-# "STATIC_URL = '/static/'"の直下に静的ファイル読み込み設定を追加
+
 STATIC_URL = '/static/'
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "static"),
-)
-
-# 写真の保存先設定
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
-
-# ログイン／ログアウトの設定
-LOGIN_URL = 'app:login'
-LOGIN_REDIRECT_URL = 'app:index'
-LOGOUT_REDIRECT_URL = 'app:index'

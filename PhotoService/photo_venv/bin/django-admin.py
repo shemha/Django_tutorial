@@ -1,4 +1,4 @@
-#!/Users/shemha/PhotoService_Tutorial/PhotoService/photo_venv/bin/python3
+#!/Users/shemha/Django_tutorial/PhotoService/photo_venv/bin/python3
 from django.core import management
 
 if __name__ == "__main__":
