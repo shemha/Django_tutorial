@@ -1,6 +1,7 @@
 from django.db import models
-from django.contrib.auth.models import User  # ←追加
+from django.contrib.auth.models import User  # ←1行追加
 
+# Create your models here.
 # Category モデルを作成
 class Category(models.Model):
     title = models.CharField(max_length=20)
@@ -8,7 +9,7 @@ class Category(models.Model):
     def __str__(self):
         return self.title
 
-# Create your models here.  下記追加
+# Photo モデルを作成
 class Photo(models.Model):
     title = models.CharField(max_length=150)
     comment = models.TextField(blank=True)

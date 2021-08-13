@@ -1,11 +1,13 @@
+<!-- base.htmlを読み込んでヘッダーを表⽰する -->
 {% extends 'app/base.html' %}
 
 {% block content %}
 
-<h2>トップページ</h2>
+{% if category %}
+    <h2>カテゴリー:{{ category.title }}の検索結果</h2>
+{% endif %}
 
-{% for photo in photos %}
-    <img src="{{ photo.image.url }}" class="photo-img">
-{% endfor %}
+<!-- photos_list.htmlを読み込んで写真⼀覧を表⽰する -->
+{% include 'app/photos_list.html' %}
 
 {% endblock %}
