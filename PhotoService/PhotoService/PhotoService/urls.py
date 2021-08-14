@@ -13,9 +13,17 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.urls import path
+from django.contrib import admin  # 管理者情報
+from django.urls import path, include  # "include"を追加
+from django.conf import settings # ←1行追加
+from django.conf.urls.static import static # ←1行追加
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', include('app.urls')),  # ←1行追加
 ]
+
+# MEDIA_ROOTを公開する(アクセス可能にする)
+urlpatterns += static(
+    settings.MEDIA_URL, document_root=settings.MEDIA_ROOT
+)

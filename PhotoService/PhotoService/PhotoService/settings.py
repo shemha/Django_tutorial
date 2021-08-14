@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'app',  # appディレクトリと連携
+    'django_cleanup',  # 画像削除機能追加
 ]
 
 MIDDLEWARE = [
@@ -116,5 +118,17 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
-
+# "STATIC_URL = '/static/'"の直下に静的ファイル読み込み設定を追加
 STATIC_URL = '/static/'
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "static"),
+)
+
+# 写真の保存先設定
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # 投稿画像の保存先
+MEDIA_URL = '/media/'  # 保存した画像のurl
+
+# ログイン／ログアウトの設定
+LOGIN_URL = 'app:login'  # ログインページ
+LOGIN_REDIRECT_URL = 'app:index'  # ログインした時にトップページにリダイレクト
+LOGOUT_REDIRECT_URL = 'app:index'  # ログアウトした時にトップページにリダイレクト
