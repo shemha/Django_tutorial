@@ -179,6 +179,7 @@ def cart(request):
     cart = request.session.get('cart', {})
     cart_products = {}
     total_price = 0
+    
 
     # 合計⾦額の計算
     for product_id, num in cart.items():
@@ -188,10 +189,13 @@ def cart(request):
             continue
         cart_products[product] = num
         total_price += product.price * num
+    
 
     if request.method == 'POST':
         purchase_form = PurchaseForm(request.POST)
+        
         if purchase_form.is_valid():
+            
             # 住所検索ボタンが押された場合
             if 'search_address' in request.POST:
                 zip_code = request.POST['zip_code']
@@ -241,6 +245,7 @@ def cart(request):
 
     else:
         purchase_form = PurchaseForm()
+    breakpoint()
     context = {
         'purchase_form': purchase_form,
         'cart_products': cart_products,
