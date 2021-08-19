@@ -16,11 +16,13 @@ class MyUserChangeForm(UserChangeForm):
         model = User
         fields = '__all__' # 全ての情報を変更可能
 
+
 class MyUserCreationForm(UserCreationForm):
     """Userを作成するフォーム"""
     class Meta:
         model = User
         fields = ('email',) # emailとパスワードが必要
+
 
 class MyUserAdmin(UserAdmin):
     """カスタムユーザーモデルのAdmin"""

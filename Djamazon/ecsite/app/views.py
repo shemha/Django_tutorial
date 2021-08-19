@@ -28,6 +28,7 @@ def index(request):
     products = Product.objects.all().order_by('-id')
     return render(request, 'app/index.html', {'products': products})
 
+
 # サインアップページ
 def signup(request):
     if request.method == 'POST':
@@ -46,6 +47,7 @@ def signup(request):
     else:
         form = CustomUserCreationForm()
     return render(request, 'app/signup.html', {'form': form})
+
 
 # 商品詳細ページ
 def detail(request, product_id):
@@ -76,6 +78,7 @@ def detail(request, product_id):
     }
     return render(request, 'app/detail.html', context)
 
+
 # 「「お気に⼊りする・お気に⼊りから外す」ボタン機能
 @login_required
 @require_POST
@@ -95,6 +98,7 @@ def toggle_fav_product_status(request):
         user.fav_products.add(product)
     return redirect('app:detail', product_id=product.id)
 
+
 # お気に⼊り商品⼀覧
 @login_required
 def fav_products(request):
@@ -102,33 +106,6 @@ def fav_products(request):
     products = user.fav_products.all()
     return render(request, 'app/index.html', {'products': products})
 
-@login_required
-def cart(request):
-    # セッションから'cart'キーに対応する辞書を取得する。
-    # セッションに'cart'キーが存在しない場合は{}(空の辞書)がcart変数に代⼊される。
-    cart = request.session.get('cart', {})
-
-    # cart_products → Productオブジェクトをキー、購⼊個数を値として持つ辞書
-    # (初期値は空の辞書)
-    cart_products = {}
-
-    # total_price → カート内商品の合計⾦額を表す変数(初期値は0)
-    total_price = 0
-    
-    # cart_prodcutsとtotal_priceを更新する
-    for product_id, num in cart.items():
-        product = Product.objects.filter(id=product_id).first()
-        if product is None:
-            # productがNoneのとき(対象商品がデータベースから削除されている場合等)は画⾯に表⽰しない
-            continue
-        cart_products[product] = num
-        total_price += product.price * num
-
-    context = {
-        'cart_products': cart_products,
-        'total_price': total_price,
-    }
-    return render(request, 'app/cart.html', context)
 
 # 商品を追加・削除機能
 @login_required
@@ -153,6 +130,7 @@ def change_product_amount(request):
             del cart_session[product_id]
     return redirect('app:cart')
 
+
 def fetch_address(zip_code):
     """
     郵便番号検索APIを利⽤する関数
@@ -173,15 +151,24 @@ def fetch_address(zip_code):
         address = result['address1'] + result['address2'] + result['address3']
     return address
 
+
 @login_required
 def cart(request):
     user = request.user
+
+    # セッションから'cart'キーに対応する辞書を取得する。
+    # セッションに'cart'キーが存在しない場合は{}(空の辞書)がcart変数に代⼊される。
     cart = request.session.get('cart', {})
+
+    # cart_products → Productオブジェクトをキー、購⼊個数を値として持つ辞書
+    # (初期値は空の辞書)
     cart_products = {}
+
+    # total_price → カート内商品の合計⾦額を表す変数(初期値は0)
     total_price = 0
-    
 
     # 合計⾦額の計算
+    # cart_prodcutsとtotal_priceを更新する
     for product_id, num in cart.items():
         product = Product.objects.filter(id=product_id).first()
         if product is None:
@@ -190,7 +177,6 @@ def cart(request):
         cart_products[product] = num
         total_price += product.price * num
     
-
     if request.method == 'POST':
         purchase_form = PurchaseForm(request.POST)
         
@@ -209,49 +195,49 @@ def cart(request):
                     initial={'zip_code': zip_code, 'address': address}
                 )
 
-    # 購⼊処理ボタンが押された場合
-    if 'buy_product' in request.POST:
-        # 住所が⼊⼒済みかを確認する。未⼊⼒の場合はリダイレクトする。
-        if not purchase_form.cleaned_data['address']:
-            messages.warning(request, "住所の⼊⼒は必須です。")
-            return redirect('app:cart')
-        # カートが空じゃないかを確認する。空の場合はリダイレクトする。
-        if not cart:
-            messages.warning(request, "カートは空です。")
-            return redirect('app:cart')
-        # 所持ポイントが⼗分にあるかを確認する。不⾜してる場合はリダイレクトする。
-        if total_price > user.point:
-            messages.warning(request, "所持ポイントが⾜りません。")
-            return redirect('app:cart')
+            # 購⼊処理ボタンが押された場合
+            if 'buy_product' in request.POST:
+                # 住所が⼊⼒済みかを確認する。未⼊⼒の場合はリダイレクトする。
+                if not purchase_form.cleaned_data['address']:
+                    messages.warning(request, "住所の⼊⼒は必須です。")
+                    return redirect('app:cart')
+                # カートが空じゃないかを確認する。空の場合はリダイレクトする。
+                if not cart:
+                    messages.warning(request, "カートは空です。")
+                    return redirect('app:cart')
+                # 所持ポイントが⼗分にあるかを確認する。不⾜してる場合はリダイレクトする。
+                if total_price > user.point:
+                    messages.warning(request, "所持ポイントが⾜りません。")
+                    return redirect('app:cart')
 
-        # 各プロダクトのSale情報を保存(売上記録の登録)
-        for product, num in cart_products.items():
-            sale = Sale(
-                product=product,
-                user=request.user,
-                amount=num,
-                price=product.price,
-                total_price=num * product.price,
-            )
-            sale.save()
+                # 各プロダクトのSale情報を保存(売上記録の登録)
+                for product, num in cart_products.items():
+                    sale = Sale(
+                        product=product,
+                        user=request.user,
+                        amount=num,
+                        price=product.price,
+                        total_price=num * product.price,
+                    )
+                    sale.save()
 
-        # 購⼊した分だけユーザーの保有ポイントを減らす。
-        user.point -= total_price
-        user.save()
-        # セッションから'cart'を削除してカートを空にする。
-        del request.session['cart']
-        messages.success(request, "商品の購⼊が完了しました！")
-        return redirect('app:cart')
+                # 購⼊した分だけユーザーの保有ポイントを減らす。
+                user.point -= total_price
+                user.save()
+                # セッションから'cart'を削除してカートを空にする。
+                del request.session['cart']
+                messages.success(request, "商品の購⼊が完了しました！")
+                return redirect('app:cart')
 
     else:
         purchase_form = PurchaseForm()
-    breakpoint()
     context = {
         'purchase_form': purchase_form,
         'cart_products': cart_products,
         'total_price': total_price,
     }
     return render(request, 'app/cart.html', context)
+
 
 @login_required
 def order_history(request):

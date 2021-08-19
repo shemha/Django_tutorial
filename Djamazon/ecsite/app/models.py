@@ -19,6 +19,7 @@ class Product(models.Model):
     def __str__(self):
         return self.name
 
+
 # 売上情報モデル
 class Sale(models.Model):
     """売上情報"""

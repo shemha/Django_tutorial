@@ -12,6 +12,7 @@ class CustomUserCreationForm(UserCreationForm):
         model = get_user_model()
         fields = ('email',)
 
+
 # 「カートに追加」機能
 class AddToCartForm(forms.Form):
     num = forms.IntegerField(
@@ -19,6 +20,7 @@ class AddToCartForm(forms.Form):
         min_value=1,
         required=True
     )
+
 
 # 郵便番号と住所を⼊⼒できるフォーム
 class PurchaseForm(forms.Form):

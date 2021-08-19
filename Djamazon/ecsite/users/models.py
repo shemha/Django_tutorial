@@ -48,6 +48,7 @@ class UserManager(BaseUserManager):
             raise ValueError('Superuser must have is_superuser=True')
         return self._create_user(email, password, **extra_fields)
 
+
 # カスタムユーザーモデルの作成
 class User(AbstractBaseUser, PermissionsMixin):
     """カスタムユーザーモデル"""
