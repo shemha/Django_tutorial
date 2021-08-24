@@ -1,26 +1,39 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <title>プログサイト</title>
+    <meta charset="UTF-8">
+    <title>ブログサイト</title>
 </head>
 <body>
+    <!-- 投稿タイトルを表示 -->
     <h1 style="text-align: center;">{{ blog.title }}</h1>
-    <div style="width: 70%; margin: 0px auto;">
+    <div style="width: 70%;margin: 0px auto;">
         <div style="margin: 60px 20px;">
+            <!-- 投稿内容を表示 -->
             {{ blog.text }}
         </div>
+
         <div style="text-align: center; margin-top: 50px">
+
+            <!-- 編集ページへ遷移 -->
             <a href="{% url 'blogs:edit' blog.id %}">
+                <!-- ページ遷移ボタン -->
                 <button class="btn">編集</button>
             </a>
-            <form method="POST" action="{% url 'blogs:delete' blog.pk %}">
-                {% csrf_token %}
+
+            <!-- ulrs.pyのdelete関数へ情報を送信、送信方法はPOST -->
+            <form method="POST" action="{% url 'blogs:delete' blog.id %}">
+                <!-- セキュリティ対策 -->
+                {%csrf_token %}
+                <!-- 入力情報をサーバーへ送信、その前に確認メッセージを表示 -->
                 <button class="btn" type="submit" onclick='return confirm("本当に削除しますか?");'>
                     削除
                 </button>
             </form>
         </div>
+
         <div style="text-align: center; margin-top: 50px">
+            <!-- トップページへ遷移 -->
             <a href="{% url 'blogs:index' %}">トップページに戻る</a>
         </div>
     </div>

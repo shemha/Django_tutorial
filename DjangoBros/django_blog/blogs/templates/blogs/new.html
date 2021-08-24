@@ -6,15 +6,20 @@
 </head>
 <body>
     <h1 style="text-align: center;">新規記事作成</h1>
-    <div style="width: 70%; margin: 0px auto;">
+    <div style="width: 70%;margin: 0px auto;">
         <div style="margin: 60px 20px;">
+            <!-- ulrs.pyのnew関数へ情報を送信、送信方法はPOST -->
             <form action="{% url 'blogs:new' %}" method="POST">
+                <!-- セキュリティ対策 -->
                 {% csrf_token %}
+                <!-- 入力フォームを表示 -->
                 {{ form.as_p }}
+                <!-- 入力情報をサーバーへ送信 -->
                 <button type="submit" class="btn">保存</button>
             </form>
         </div>
-        <div style="text-align: center; margin-top:50px;">
+        <div style="text-align: center; margin-top: 50px">
+            <!-- トップページへ遷移 -->
             <a href="{% url 'blogs:index' %}">トップページに戻る</a>
         </div>
     </div>

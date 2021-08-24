@@ -14,9 +14,9 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include  # includeを追加
+from django.urls import path, include  # 'include'を追加
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('blogs.urls')),  # 1行追加
+    path('admin/', admin.site.urls),  # 末尾にパス'admin/'を付けることで管理者ページに遷移
+    path('', include('blogs.urls')),  # 末尾指定なしのURLでトップに遷移
 ]

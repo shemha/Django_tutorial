@@ -2,11 +2,14 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>ページはありません</title>
+    <title>表示エラー</title>
 </head>
 <body>
-    <h1>このページは利用できません</h1>
+    <h1 style="text-align: center;">このページは利用できません</h1>
     <p>アクセスできないURLか、ページが削除されています。</p>
-    <p><a href="/">トップページに戻る</a></p>
+    <div style="text-align: center; margin-top: 50px">
+        <!-- トップページへ遷移 -->
+        <a href="{% url 'blogs:index' %}">トップページに戻る</a>
+    </div>
 </body>
 </html>
