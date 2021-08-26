@@ -23,9 +23,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'yi29w6u=*xqmgcc25^$w+uc-ae97w!99^n7+rqq+i#b0elmc(r'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# 404ページを設定する場合は'False'に指定してユーザー補助のページを非表示にする
+DEBUG = False
 
-ALLOWED_HOSTS = []
+# "DEBUG = False"にしたらホストを指定する
+# '*'はどんなホストも許容の意味
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
